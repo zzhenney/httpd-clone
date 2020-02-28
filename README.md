@@ -1,6 +1,3 @@
-
-Poops
-
 # WebServer
 A basic web server capable of handling a subset of HTTP requests/responses
 
