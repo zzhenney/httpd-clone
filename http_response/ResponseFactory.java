@@ -19,15 +19,15 @@ public class ResponseFactory {
     private Request request;
     private Resource resource;
     
-    final int OK = 200;
-    final int CREATED = 201;
-    final int NO_CONTENT = 204;
-    final int NOT_MODIFIED = 304;
-    final int BAD_REQUEST = 400;
-    final int UNAUTHORIZED = 401;
-    final int FORBIDDEN = 403;
-    final int NOT_FOUND = 404;
-    final int INTERNAL_SERVER_ERROR = 500;
+    static final int OK = 200;
+    static final int CREATED = 201;
+    static final int NO_CONTENT = 204;
+    static final int NOT_MODIFIED = 304;
+    static final int BAD_REQUEST = 400;
+    static final int UNAUTHORIZED = 401;
+    static final int FORBIDDEN = 403;
+    static final int NOT_FOUND = 404;
+    static final int INTERNAL_SERVER_ERROR = 500;
     //create final ints for server codes
     
     public Response getResponse(Request request, Resource resource) throws IOException{

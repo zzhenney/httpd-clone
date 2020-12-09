@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import server_conf.HttpdConf;
 import server_conf.MimeTypes;
+import java.nio.charset.StandardCharsets;
 
 public class Worker implements Runnable {
     private Socket client;
@@ -38,16 +39,19 @@ public class Worker implements Runnable {
 
             InputStream istream = client.getInputStream();
             int length = istream.available();
-
-            Reader readIn = new InputStreamReader(new BufferedInputStream(istream), "US-ASCII");
             StringBuilder data = new StringBuilder();
+            try(Reader readIn = new InputStreamReader(new BufferedInputStream(istream), StandardCharsets.UTF_8)){
+                
 
-            while(length != 0){
-                int c = readIn.read();
-                //System.out.print(c + "");
-                data.append((char)c);
-                length--;
+                while(length != 0){
+                    int c = readIn.read();
+                    data.append((char)c);
+                    length--;
+                }
+
             }
+            //Reader readIn = new InputStreamReader(new BufferedInputStream(istream), StandardCharsets.UTF_8);
+            
 
             String str = data.toString();     
             System.out.println(str);
@@ -62,22 +66,16 @@ public class Worker implements Runnable {
             ResponseFactory responseFactory = new ResponseFactory();
             Response response = responseFactory.getResponse(request, resource);
 
-            OutputStream ostream = new BufferedOutputStream(client.getOutputStream());
-            response.send(ostream);
-/*
-            try {
-                Thread.sleep(200);
-                //logger = new Logger(configuation.getLogFilePath());
-                //logger.write(request, response);
-
-            } catch (InterruptedException ex) {
-                java.util.logging.Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+            try(OutputStream ostream = new BufferedOutputStream(client.getOutputStream())){
+                response.send(ostream);
             }
-*/
+            //OutputStream ostream = new BufferedOutputStream(client.getOutputStream());
+            //response.send(ostream);
+
 
 
         }catch (Exception ex) {
-            System.out.println("Worker.java 83: " + ex);
+            System.out.println(ex);
             //Response badRequest = new BadRequestResponse();
             //badRequest.send(out);
         }
@@ -87,9 +85,7 @@ public class Worker implements Runnable {
                 client.close();
             } catch (IOException ex) {
                 System.out.println("Worker.java: " + ex);
-                //Response serverError = new InternalServerErrorResponse();
-                //serverError.send(out);
-                //java.util.logging.Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         } 
     }    

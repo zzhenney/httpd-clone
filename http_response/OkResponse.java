@@ -37,7 +37,6 @@ public class OkResponse extends Response {
                 output.flush();
                 output.close();
                 out.close();
-                //out.close();
   
             } catch (IOException ex) {
                 System.out.println("OkResponse: " + ex);

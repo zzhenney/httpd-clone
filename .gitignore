@@ -41,5 +41,4 @@ Thumbs.d
 /test/
 build.xml
 manifest.
-
-conf/httpd.conf
+.vscode

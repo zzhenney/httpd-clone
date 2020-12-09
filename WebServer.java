@@ -16,7 +16,7 @@ public class WebServer {
     private static ServerSocket socketServer;
     private static ExecutorService threadPool;
     private Map<String,String> accessFiles;
-    private final static int PORT = 8800;
+    private final int PORT = 8800;
     
     public WebServer() throws FileNotFoundException, IOException{
         configuration = new HttpdConf("conf/httpd.conf");
