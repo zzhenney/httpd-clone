@@ -42,4 +42,4 @@ Thumbs.d
 build.xml
 manifest.
 .vscode
-conf/httpd.conf
+/conf/httpd.conf
